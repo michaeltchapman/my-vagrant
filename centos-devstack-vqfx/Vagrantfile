@@ -45,8 +45,9 @@ Vagrant.configure("2") do |config|
       domain.memory = 2048
     end
 
-    # DO NOT REMOVE / NO VMtools installed
     vqfxpfe.vm.synced_folder '.', '/vagrant', disabled: true
+    vqfxpfe.ssh.insert_key = false
+
     vqfxpfe.vm.network "private_network",
       :auto_config => false,
       :libvirt__tunnel_type => "udp",
@@ -62,8 +63,8 @@ Vagrant.configure("2") do |config|
   config.vm.define "vqfx" do |vqfx|
     vqfx.vm.box = "juniper/vqfx10k-re"
 
-    # Turn off shared folders
-    vqfx.vm.synced_folder ".", "/vagrant", id: "vagrant-root", disabled: true
+    vqfx.vm.synced_folder '.', '/vagrant', disabled: true
+    vqfx.ssh.insert_key = false
 
     vqfx.ssh.username = "root"
     vqfx.ssh.password = "Juniper"
