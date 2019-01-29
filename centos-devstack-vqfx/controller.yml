@@ -1,0 +1,5 @@
+---
+- name: provision controller
+  hosts: controller
+  roles:
+    - development
