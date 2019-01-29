@@ -33,8 +33,8 @@ Vagrant.configure("2") do |config|
 
   config.vm.define "vqfx-pfe" do |vqfxpfe|
     vqfxpfe.vm.box = "juniper/vqfx10k-pfe"
+    vqfxpfe.vm.guest = "openbsd"
 
-    vqfxpfe.ssh.insert_key = false
     vqfxpfe.ssh.username = "root"
     vqfxpfe.ssh.password = "no"
 
@@ -62,9 +62,9 @@ Vagrant.configure("2") do |config|
 
   config.vm.define "vqfx" do |vqfx|
     vqfx.vm.box = "juniper/vqfx10k-re"
+    vqfx.vm.guest = "openbsd"
 
     vqfx.vm.synced_folder '.', '/vagrant', disabled: true
-    vqfx.ssh.insert_key = false
 
     vqfx.ssh.username = "root"
     vqfx.ssh.password = "Juniper"
