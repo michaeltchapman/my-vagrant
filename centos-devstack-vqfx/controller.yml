@@ -3,3 +3,4 @@
   hosts: controller
   roles:
     - development
+    - devstack-all-in-one
