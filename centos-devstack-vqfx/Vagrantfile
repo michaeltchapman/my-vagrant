@@ -7,6 +7,9 @@ ctrlp = [8003, 9003]
 bmp1 = [8004, 9004]
 bmp2 = [8005, 9005]
 
+pfeboxname = "juniper/vqfx10k-pfe"
+reboxname = "juniper/vqfx10k-re"
+
 # All Vagrant configuration is done below. The "2" in Vagrant.configure
 # configures the configuration version (we support older styles for
 # backwards compatibility). Please don't change it unless you know what
@@ -23,7 +26,7 @@ Vagrant.configure("2") do |config|
   end
 
   config.vm.define "vqfx-pfe" do |vqfxpfe|
-    vqfxpfe.vm.box = "juniper/vqfx10k-pfe"
+    vqfxpfe.vm.box = pfeboxname
     vqfxpfe.vm.guest = "openbsd"
 
     vqfxpfe.ssh.username = "root"
@@ -52,7 +55,7 @@ Vagrant.configure("2") do |config|
   end
 
   config.vm.define "vqfx" do |vqfx|
-    vqfx.vm.box = "juniper/vqfx10k-re"
+    vqfx.vm.box = reboxname
     vqfx.vm.guest = "openbsd"
 
     vqfx.vm.synced_folder '.', '/vagrant', disabled: true
