@@ -4,3 +4,4 @@
   roles:
     - development
     - devstack-all-in-one
+    - netansible
