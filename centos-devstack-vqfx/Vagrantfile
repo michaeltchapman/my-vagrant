@@ -1,14 +1,17 @@
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
 
+# management ports between the vqfx and the routing engine
 mgmtp1 = [8001, 9001]
 mgmtp2 = [8002, 9002]
+# controller to virtual appliance
 ctrlp = [8003, 9003]
+# virtual baremetal to virtual appliance
 bmp1 = [8004, 9004]
 bmp2 = [8005, 9005]
 
-pfeboxname = "juniper/vqfx10k-pfe"
-reboxname = "juniper/vqfx10k-re"
+pfeboxname = "vqfx10k-pfe"
+reboxname = "junos"
 
 # All Vagrant configuration is done below. The "2" in Vagrant.configure
 # configures the configuration version (we support older styles for
@@ -108,7 +111,7 @@ Vagrant.configure("2") do |config|
 
     controller.vm.provider :libvirt do |domain|
       domain.cpus = 2
-      domain.memory = 10000
+      domain.memory = 8192
     end
 
     controller.vm.network "private_network",
@@ -117,33 +120,21 @@ Vagrant.configure("2") do |config|
       :libvirt__tunnel_port => ctrlp[1],
       :libvirt__tunnel_local_port => ctrlp[0]
 
-    controller.vm.provision :ansible do |ansible|
-      ansible.playbook = "controller.yml"
-    end
-  end
-
-  config.vm.define "bm1" do |bm1|
-    bm1.vm.hostname = "bm1"
-    bm1.vm.box = "centos/7"
-
-    bm1.vm.network "private_network",
+    controller.vm.network "private_network",
       :auto_config => false,
       :libvirt__tunnel_type => "udp",
       :libvirt__tunnel_port => bmp1[1],
       :libvirt__tunnel_local_port => bmp1[0]
 
-  end
-
-  config.vm.define "bm2" do |bm2|
-    bm2.vm.hostname = "bm2"
-    bm2.vm.box = "centos/7"
-
-    bm2.vm.network "private_network",
+    controller.vm.network "private_network",
       :auto_config => false,
       :libvirt__tunnel_type => "udp",
       :libvirt__tunnel_port => bmp2[1],
       :libvirt__tunnel_local_port => bmp2[0]
 
+    controller.vm.provision :ansible do |ansible|
+      ansible.playbook = "controller.yml"
+    end
   end
 
 end
