@@ -4,5 +4,5 @@ set -e
 set -x
 
 pushd centos-devstack-vqfx
-vagrant destroy -f
+vagrant destroy -f controller
 popd
