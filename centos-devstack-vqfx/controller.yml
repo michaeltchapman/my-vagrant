@@ -3,5 +3,6 @@
   hosts: controller
   roles:
     - development
+    #- conntest
     - devstack-all-in-one
     - netansible
